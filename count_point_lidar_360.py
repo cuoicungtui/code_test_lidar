@@ -13,6 +13,7 @@ tmpString = ""
 points_in_one_revolution = 0
 start_time = time.time()
 revolutions = 0
+revolution_started = False
 
 while True:
     loopFlag = True
@@ -49,14 +50,17 @@ while True:
 
         flag2c = False
 
-    if 'lidarData' in locals():
-        # Check if one revolution is complete (360 degrees)
-        if sum(lidarData.Angle_i) >= 360.0:
+    # Check if one revolution is complete (360 degrees)
+    if lidarData.Angle_i[-1] < lidarData.Angle_i[0]:
+        if revolution_started:
             revolutions += 1
             print(f"Revolution {revolutions}: Points in one revolution: {points_in_one_revolution}")
 
             # Reset points counter for the next revolution
             points_in_one_revolution = 0
+        revolution_started = True
+    else:
+        revolution_started = False
 
     elapsed_time = time.time() - start_time
 
