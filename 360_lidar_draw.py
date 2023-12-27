@@ -49,13 +49,14 @@ while True:
 
         flag2c = False
 
-    # Check if one revolution is complete (360 degrees)
-    if sum(lidarData.Angle_i) >= 360.0:
-        revolutions += 1
-        print(f"Revolution {revolutions}: Total Distance: {total_distance} units")
+    if 'lidarData' in locals():
+        # Check if one revolution is complete (360 degrees)
+        if sum(lidarData.Angle_i) >= 360.0:
+            revolutions += 1
+            print(f"Revolution {revolutions}: Total Distance: {total_distance} units")
 
-        # Reset total distance for the next revolution
-        total_distance = 0
+            # Reset total distance for the next revolution
+            total_distance = 0
 
     elapsed_time = time.time() - start_time
 
